@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+.neontitle {
+	font-size: 5rem;
+	color: white;
+	font-family: 'Arial', sans-serif;
+	text-shadow: 0 0 1.5rem white, 0 0 3.5rem white, 0 0 5rem white, 0 0
+		7rem #ff00de, 0 0 8rem #ff00de, 0 0 10rem #ff00de, 0 0 12rem #ff00de,
+		0 0 15rem #ff00de;
+	text-align: center;
+}
+
+body {
+	background-color: black;
+}
+
+.neonText {
+	color: #fff;
+	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px
+		#bc13fe, 0 0 82px #bc13fe, 0 0 92px #bc13fe, 0 0 102px #bc13fe, 0 0
+		151px #bc13fe;
+}
+
+.wrapper {
+	margin: 0 auto;
+	width: 800px;
+	height: 500px;
+	font-size: 1.2rem;
+	border: 0.2rem solid #fff;
+	box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem
+		#bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
+}
+
+.wrapper1 {
+	margin: 0 auto; font-size : 1.2rem;
+	border: 0.2rem solid #fff;
+	box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem
+		#bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
+	font-size: 1.2rem; border : 0.2rem solid #fff; box-shadow : 0 0 .2rem
+	#fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe, 0 0 2.8rem
+	#bc13fe, inset 0 0 1.3rem #bc13fe;
+	width: 140px;
+	height: 40px;
+}
+
+table {
+	margin: 0 auto;
+	width: 150px;
+	height: 50px;
+	font-size: 1.2rem;
+	border: 0.2rem solid #fff;
+	box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem
+		#bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
+}
