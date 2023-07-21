@@ -10,19 +10,20 @@
 <body>
 	<%@ include file="menu.jsp"%>
 	<br>
-	<form action="" class="form">
-		<span></span> <span></span> <span></span> <span></span>
-		<div class="form-inner">
-			<h2>LOGIN</h2>
-			<div class="content">
-				<input class="input" type="text" placeholder="Username" /> 
-				<input
-					class="input" type="password" placeholder="Password" />
-				<button class="btn">LOGIN</button>
+	<div class="form">
+		<form action="./login" method="post">
+			<span></span> <span></span> <span></span> <span></span>
+			<div class="form-inner">
+				<h2>LOGIN</h2>
+				<div class="content">
+					<input class="input" name="id" type="text" placeholder="Username" />
+					 <input
+						class="input" name="pw" type="password" placeholder="Password" />
+					<button class="btn">LOGIN</button>
+				</div>
 			</div>
-		</div>
-
-
 	</form>
+	</div>
+
 </body>
 </html>

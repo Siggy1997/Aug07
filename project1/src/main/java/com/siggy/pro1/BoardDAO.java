@@ -23,9 +23,9 @@ public class BoardDAO {
 	}
 
 	public BoardDTO detail(int bno) {
-
 		return sqlsession.selectOne("board.detail", bno); //앞에는 네임스페이스.아이디, 값
 	}
+	
 
 	public void write(BoardDTO dto) {
 		sqlsession.insert("board.write", dto);

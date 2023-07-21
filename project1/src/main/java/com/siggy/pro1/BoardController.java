@@ -82,7 +82,6 @@ public class BoardController {
 		// 추후 로그인 하면 사용자의 정보도 담아서 보냅니다
 
 		boardService.delete(dto);
-		System.out.println("bno : " + bno);
 		return "redirect:board";
 	}
 
@@ -97,17 +96,10 @@ public class BoardController {
 		return mv;
 	}
 
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
-	
+
 	@PostMapping("/edit")
 	public String edit(BoardDTO dto) {
 		//System.out.println("map : " + map);
-		System.out.println(dto.getBtitle());
-		System.out.println(dto.getBcontent());
-		System.out.println(dto.getBno());
 		boardService.edit(dto);
 
 		

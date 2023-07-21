@@ -1,28 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<link rel = "stylesheet" href="./resources/css/menu.css">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/favicon.ico" type="img/x-icon">
+<link rel="stylesheet" href="./resources/css/menu.css">
 
-	<nav class="neonText1">
-		<ul>
-			<li onclick="link('')">메인</li>
-			<li onclick="link('board')">게시판</li>
-			<li onclick="link('board2')">게시판2</li>
-			<li onclick="link('mooni')">문의사항</li>
-			<li onclick="link('notice')">공지</li>
-			<li class="l" onclick="link('login')">HELLO<li>
-			<li class="l" onclick="link('login')">LOGIN<li>
-		</ul>
-	</nav>
-<br>	
-<br>	
-<br>	
-<br>	
-	<script>
-	function link(url){
-		location.href="./"+url;
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
+
+<nav class="neonText1">
+	<ul>
+		<li onclick="link('')">메인</li>
+		<li onclick="link('board')">게시판</li>
+		<li onclick="link('board2')">게시판2</li>
+		<li onclick="link('mooni')">문의사항</li>
+		<li onclick="link('notice')">공지</li>
+		<c:choose>
+			<c:when test="${sessionScope.mname eq null}">
+				<li class="l" onclick="link('login')">LOGIN</li>
+			</c:when>
+			<c:otherwise>
+				<li class="l" onclick="link('logout')">LOGOUT</li>
+				<li class="h" onclick="link('myInfo')">WELCOME${sessionScope.mname}
+					(${sessionScope.mid})</li>
+
+			</c:otherwise>
+		</c:choose>
+
+	</ul>
+</nav>
+<br>
+<br>
+<br>
+<br>
+<script>
+	function link(url) {
+		location.href = "./" + url;
 	}
-	</script>
+</script>
 
