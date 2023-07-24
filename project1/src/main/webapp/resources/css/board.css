@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 .write {
 	font-size: 1rem;
 	color: white;
@@ -40,6 +41,7 @@ body {
 	background-size: 30%;
 	background-position: center;
 	background-color: black;
+
 }
 
 h1 {

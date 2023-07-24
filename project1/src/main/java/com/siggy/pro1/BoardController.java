@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,33 +44,56 @@ public class BoardController {
 
 		// bno에 요청하는 값이 있습니다. 이 값을 db까지 보내겠습니다.
 		// System.out.println("bno" + bno);
-		BoardDTO dto = boardService.detail(bno);
-		model.addAttribute("dto", dto);
+		BoardDTO dto = new BoardDTO();
+		dto.setBno(bno);
+		
+		BoardDTO result = boardService.detail(dto);
+		model.addAttribute("dto",result);
+		
+		
 
 		return "detail";
 	}
 
 	@GetMapping("/write")
-	public String write() {
-		return "write";
+	public String write(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("mname") != null) {
+
+			return "write";
+		} else {
+			return "redirect:/login"; // 슬러시 넣어주세요.
+
+		}
 	}
 
 	@PostMapping("/write")
-	public String write(HttpServletRequest request) {
+	public String write2(HttpServletRequest request) {
 		// 사용자가 입력한 데이터 변수에 담기
 		// Service -> DAO -> mybatis -> DB로 보내서 저장하기
 		// System.out.println(request.getParameter("title"));
 		// System.out.println(request.getParameter("content"));
+		HttpSession session = request.getSession();
+		if (session.getAttribute("mid") != null) {
+			// 로그인했습니다 = 아래 로직을 여기로 가져오세요
 
-		BoardDTO dto = new BoardDTO();
-		dto.setBtitle(request.getParameter("title"));
-		dto.setBcontent(util.getIp() + request.getParameter("content"));
-		dto.setBip(util.getIp()); // 얻어온 ip도 저장해서 데이터 베이스로 보내겠습니다
-		dto.setBwrite("Siggy");
+			BoardDTO dto = new BoardDTO();
 
-		boardService.write(dto);
+			dto.setBtitle(request.getParameter("title"));
+			dto.setBcontent(util.getIp() + request.getParameter("content"));
+			dto.setBip(util.getIp()); // 얻어온 ip도 저장해서 데이터 베이스로 보내겠습니다
 
-		return "redirect:board";
+			dto.setM_id((String) session.getAttribute("mid"));
+			dto.setM_name((String) session.getAttribute("mname"));
+			
+			
+			boardService.write(dto);
+
+			return "redirect:board";
+
+		} else {
+			return "redirect:/login";
+		}
 	}
 
 	@GetMapping("/delete")
@@ -87,29 +111,33 @@ public class BoardController {
 
 	@GetMapping("/edit")
 	public ModelAndView edit(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
 		ModelAndView mv = new ModelAndView("edit"); // edit.jsp
 		// 데이터 베이스에 bno를 보내서 dto를 얻어옵니다
 		// mv에 실어 보냅니다
-		BoardDTO dto = boardService.detail(util.strToInt(request.getParameter("bno")));
-		mv.addObject("dto", dto);
+		
+		//dto를 하나 만들어서 거기에 담겠습니다 = bno, mid
+		BoardDTO dto = new BoardDTO();
+		dto.setBno(util.strToInt(request.getParameter("bno")));
+		dto.setM_id((String)session.getAttribute("mid"));
+		
+//		BoardDTO dto = boardService.detail(util.strToInt(request.getParameter("bno")));
+		
+		BoardDTO result = boardService.detail(dto);
+		
+		mv.addObject("dto", result);
 
 		return mv;
 	}
 
-
 	@PostMapping("/edit")
 	public String edit(BoardDTO dto) {
-		//System.out.println("map : " + map);
+		// System.out.println("map : " + map);
 		boardService.edit(dto);
 
-		
-		
-		return "redirect:detail?bno="+ dto.getBno();
+		return "redirect:detail?bno=" + dto.getBno();
 
 	}
 
 }
-
-
-
-

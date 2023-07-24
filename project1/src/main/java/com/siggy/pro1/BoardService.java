@@ -23,7 +23,7 @@ public class BoardService {
 	private Util util;
 
 	// 보드 리스트 불러오는 메소드
-	public List<Map<String, Object>> boardList() {
+	public List<BoardDTO> boardList() {
 		return boardDAO.boardlist();
 
 		/*
@@ -39,8 +39,8 @@ public class BoardService {
 
 	}
 
-	public BoardDTO detail(int bno) {
-		BoardDTO dto = boardDAO.detail(bno);
+	public BoardDTO detail(BoardDTO dto2) {
+		BoardDTO dto = boardDAO.detail(dto2);
 		
 		
 		if (dto.getBip() !=null && dto.getBip().indexOf(".") != -1 ) {

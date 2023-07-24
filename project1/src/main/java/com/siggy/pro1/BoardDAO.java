@@ -18,12 +18,12 @@ public class BoardDAO {
 	@Named("sqlSession")
 	private SqlSession sqlsession;
 
-	public List<Map<String, Object>> boardlist() {
+	public List<BoardDTO> boardlist() {
 		return sqlsession.selectList("board.boardList");
 	}
 
-	public BoardDTO detail(int bno) {
-		return sqlsession.selectOne("board.detail", bno); //앞에는 네임스페이스.아이디, 값
+	public BoardDTO detail(BoardDTO dto2) {
+		return sqlsession.selectOne("board.detail", dto2); //앞에는 네임스페이스.아이디, 값
 	}
 	
 

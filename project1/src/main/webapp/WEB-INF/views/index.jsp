@@ -21,7 +21,7 @@
 		WELCOME<br>TO<br>SIGGY WORLD
 	</div>
 <div style="color: white; ">
-<%=request.getHeader("User-Agent")%>
+<%-- <%=request.getHeader("User-Agent")%> --%>
 </div>
 </body>
 </html>

@@ -55,9 +55,9 @@ public class LoginController {
 		 * if (session.getAttribute("mid") != null) { //session.invalidate(); // 세션삭제하기
 		 * session.removeAttribute("mid"); }
 		 */
-		session.setMaxInactiveInterval(3); //세션유지시간을 0으로 = 종료시키기
+		//session.setMaxInactiveInterval(3); //세션유지시간을 0으로 = 종료시키기
 		
-		//session.invalidate();
+		session.invalidate();
 		
 		return "redirect:index";
 
