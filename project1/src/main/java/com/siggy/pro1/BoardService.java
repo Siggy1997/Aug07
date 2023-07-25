@@ -40,10 +40,17 @@ public class BoardService {
 	}
 
 	public BoardDTO detail(BoardDTO dto2) {
+		//좋아요수 +1하기 기능을 넣어주겠습니다
+		boardDAO.likeUp(dto2);
+		
 		BoardDTO dto = boardDAO.detail(dto2);
+		System.out.println(dto);
+		//System.out.println(dto.getBno());
+		//System.out.println(dto.getBip());
+
 		
-		
-		if (dto.getBip() !=null && dto.getBip().indexOf(".") != -1 ) {
+		// 내글이 아닐때 는 null들어옵니다. 즉 null이 아닐때라고 검사해주세요	
+		if (dto != null && dto.getBip() !=null && dto.getBip().indexOf(".") != -1 ) {
 			
 		String[] arrbip = dto.getBip().split("\\.");
 		arrbip[1] = "★";

@@ -23,13 +23,12 @@ public class BoardDAO {
 	}
 
 	public BoardDTO detail(BoardDTO dto2) {
-		return sqlsession.selectOne("board.detail", dto2); //앞에는 네임스페이스.아이디, 값
+		return sqlsession.selectOne("board.detail", dto2); // 앞에는 네임스페이스.아이디, 값
 	}
-	
 
 	public void write(BoardDTO dto) {
 		sqlsession.insert("board.write", dto);
-		
+
 	}
 
 	public void delete(BoardDTO dto) {
@@ -39,4 +38,9 @@ public class BoardDAO {
 	public void edit(BoardDTO dto) {
 		sqlsession.update("board.edit", dto);
 	}
+
+	public void likeUp(BoardDTO dto2) {
+		sqlsession.update("board.likeUp", dto2);
+	}
+
 }

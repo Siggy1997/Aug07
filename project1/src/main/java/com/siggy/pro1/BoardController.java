@@ -1,12 +1,9 @@
 package com.siggy.pro1;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -97,38 +94,60 @@ public class BoardController {
 	}
 
 	@GetMapping("/delete")
-	public String delete(@RequestParam(value = "bno", required = false, defaultValue = "0") int bno) {
+	public String delete(@RequestParam(value = "bno", required = false, defaultValue = "0") int bno, HttpSession session) {
 		// HttpServletRequest의 getParameter();합친거
-
+		//로그인 여부 확인
+		//System.out.println(session.getAttribute("mid"));
 		// dto
-		BoardDTO dto = new BoardDTO();
-		dto.setBno(bno);
-		// 추후 로그인 하면 사용자의 정보도 담아서 보냅니다
-
-		boardService.delete(dto);
-		return "redirect:board";
+		if(session.getAttribute("mid") !=null ) {
+			
+			BoardDTO dto = new BoardDTO();
+			dto.setBno(bno);
+			dto.setM_id((String)session.getAttribute("mid"));
+			// 추후 로그인 하면 사용자의 정보도 담아서 보냅니다
+			
+			boardService.delete(dto);
+			return "redirect:board";
+		} else {
+			return "redirect:/login";
+		}
+		
 	}
 
 	@GetMapping("/edit")
 	public ModelAndView edit(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		
-		ModelAndView mv = new ModelAndView("edit"); // edit.jsp
 		// 데이터 베이스에 bno를 보내서 dto를 얻어옵니다
 		// mv에 실어 보냅니다
 		
-		//dto를 하나 만들어서 거기에 담겠습니다 = bno, mid
-		BoardDTO dto = new BoardDTO();
-		dto.setBno(util.strToInt(request.getParameter("bno")));
-		dto.setM_id((String)session.getAttribute("mid"));
+		ModelAndView mv = new ModelAndView(); // edit.jsp
 		
+		//로그인 하지 않으면 로그인 화면으로 던져주세요
+		//if문으로 만들어주세요
+		if(session.getAttribute("mid") != null) {
+			BoardDTO dto = new BoardDTO();
+			
+			//dto를 하나 만들어서 거기에 담겠습니다 = bno, mid
+			dto.setBno(util.strToInt(request.getParameter("bno")));
+			dto.setM_id((String)session.getAttribute("mid"));
+			
 //		BoardDTO dto = boardService.detail(util.strToInt(request.getParameter("bno")));
-		
-		BoardDTO result = boardService.detail(dto);
-		
-		mv.addObject("dto", result);
-
+			
+			BoardDTO result = boardService.detail(dto);
+			if(result != null) {
+				mv.addObject("dto", result);
+				mv.setViewName("edit");
+				
+			}else { // 다른사람글이라면 null입니다. 경고창으로 이동합니다.
+				mv.setViewName("warning");
+			}
+			
+		}else {
+			mv.setViewName("redirect:/login");
+		}
 		return mv;
+		
 	}
 
 	@PostMapping("/edit")
