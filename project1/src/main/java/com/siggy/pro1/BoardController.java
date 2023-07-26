@@ -1,5 +1,7 @@
 package com.siggy.pro1;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 @Controller
 public class BoardController {
@@ -25,10 +29,36 @@ public class BoardController {
 	private Util util;
 
 	@GetMapping("/board")
-	public String board(Model model) {
+	public String board(@RequestParam(value ="pageNo", required= false, defaultValue = "1") int pageNo, Model model) {
 		// 서비스에서 값 가져오기
 		// boardService.boardList(); //한줄로 줄이기
-		model.addAttribute("list", boardService.boardList());
+		
+		//페이지네이션인포 -> 값 넣고 -> DB -> jsp
+		PaginationInfo paginationInfo = new PaginationInfo(); 
+		paginationInfo.setCurrentPageNo(pageNo); //현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(10); //한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(10); //페이징 리스트의 사이즈
+		//전체 글수 가져오는 명령문장
+		int totalCount = boardService.totalCount();
+		paginationInfo.setTotalRecordCount(totalCount); //전체 게시물 건 수
+		
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex(); //시작 위치
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage(); //페이지당 몇개?
+ 
+		//System.out.println(firstRecordIndex);
+		//System.out.println(recordCountPerPage);
+		//System.out.println(pageNo);
+		//System.out.println(totalCount);
+		
+		PageDTO page = new PageDTO();
+		page.setFirstRecordIndex(firstRecordIndex);
+		page.setRecordCountPerPage(recordCountPerPage);
+		
+		//보드 서비스 수정합니다.
+		List<BoardDTO> list = boardService.boardList(page);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paginationInfo", paginationInfo);
 		return "board";
 	}
 

@@ -18,8 +18,8 @@ public class BoardDAO {
 	@Named("sqlSession")
 	private SqlSession sqlsession;
 
-	public List<BoardDTO> boardlist() {
-		return sqlsession.selectList("board.boardList");
+	public List<BoardDTO> boardlist(PageDTO page) {
+		return sqlsession.selectList("board.boardList", page);
 	}
 
 	public BoardDTO detail(BoardDTO dto2) {
@@ -41,6 +41,10 @@ public class BoardDAO {
 
 	public void likeUp(BoardDTO dto2) {
 		sqlsession.update("board.likeUp", dto2);
+	}
+
+	public int totalCount() {
+		return sqlsession.selectOne("board.totalCount");
 	}
 
 }
