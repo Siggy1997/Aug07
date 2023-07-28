@@ -1,16 +1,14 @@
-package com.siggy.pro1;
+package com.siggy.board;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.siggy.util.Util;
 
 @Service("boardService")
 public class BoardService {
@@ -87,4 +85,6 @@ public class BoardService {
 	public int totalCount() {
 		return boardDAO.totalCount();
 	}
+	
+	
 }

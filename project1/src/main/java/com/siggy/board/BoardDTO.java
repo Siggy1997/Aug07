@@ -1,8 +1,8 @@
-package com.siggy.pro1;
+package com.siggy.board;
 
 public class BoardDTO {
 	private int bno, blike;
-	private String btitle, m_name, m_id, bcontent, bdate, bip;
+	private String btitle, m_name, m_id, bcontent, bdate, bip, uuid;
 	
 	
 	public int getBno() {
@@ -52,6 +52,12 @@ public class BoardDTO {
 	}
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 	

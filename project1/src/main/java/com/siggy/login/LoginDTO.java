@@ -1,4 +1,4 @@
-package com.siggy.pro1;
+package com.siggy.login;
 
 
 public class LoginDTO {

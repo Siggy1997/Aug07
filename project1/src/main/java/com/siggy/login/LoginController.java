@@ -1,4 +1,6 @@
-package com.siggy.pro1;
+package com.siggy.login;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
@@ -17,7 +20,25 @@ public class LoginController {
 	public String login() {
 		return "login";
 	}
-
+	 @GetMapping("join")
+	 public String join() {
+		 return "join";
+	 }
+	 
+	 @PostMapping("/join")
+	 public String join(JoinDTO joinDTO) {
+		 System.out.println("jsp에서 오는값 : " + joinDTO.getGender());
+		 int result = loginService.join(joinDTO);
+		 System.out.println(result);
+		 
+		 if (result == 1) {
+			return "redirect:/login";
+		} else {
+			return "join";
+		}
+		 
+	 }
+	 
 	@PostMapping("/login")
 	public String login(HttpServletRequest request) {
 		LoginDTO dto = new LoginDTO();
@@ -61,6 +82,15 @@ public class LoginController {
 		
 		return "redirect:index";
 
+	}
+	
+	@GetMapping("/members")
+	public ModelAndView members() {
+		ModelAndView mv = new ModelAndView("members");
+		List<JoinDTO> list = loginService.members();
+		mv.addObject("list", list);
+		return mv;
+		
 	}
 
 }

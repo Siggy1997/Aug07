@@ -51,11 +51,11 @@
 				<c:forEach items="${list }" var="row">
 					<!-- 	onclick 자바 스크립트 페이지 이동, URL?파라미터 = 값 -->
 					<tr onclick="location.href='./detail?bno=${row.bno}'">
-						<td class="neonText">${row.bno }</td>
-						<td class="neonText">${row.btitle }</td>
-						<td class="neonText">${row.m_name }</td>
-						<td class="neonText">${row.bdate }</td>
-						<td class="neonText">${row.blike }</td>
+						<td style="color: white">${row.bno }</td>
+						<td style="color: white">${row.btitle }</td>
+						<td style="color: white">${row.m_name }</td>
+						<td style="color: white">${row.bdate }</td>
+						<td style="color: white">${row.blike }</td>
 					</tr>
 				</c:forEach>
 			</table>

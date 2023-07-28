@@ -1,6 +1,7 @@
-package com.siggy.pro1;
+package com.siggy.board;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.siggy.util.Util;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -112,6 +115,9 @@ public class BoardController {
 
 			dto.setM_id((String) session.getAttribute("mid"));
 			dto.setM_name((String) session.getAttribute("mname"));
+			dto.setUuid(UUID.randomUUID().toString());
+			System.out.println(dto.getUuid());
+			System.out.println(dto.getUuid().length());
 			
 			
 			boardService.write(dto);
@@ -121,8 +127,7 @@ public class BoardController {
 		} else {
 			return "redirect:/login";
 		}
-	}
-
+	} 
 	@GetMapping("/delete")
 	public String delete(@RequestParam(value = "bno", required = false, defaultValue = "0") int bno, HttpSession session) {
 		// HttpServletRequest의 getParameter();합친거

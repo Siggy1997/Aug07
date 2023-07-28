@@ -8,24 +8,67 @@
    box-sizing: border-box;
 
 }
-
-
+.register{
+	position: absolute;	
+	top: 310px;
+	left: 100px;
+}
+.register a{
+	color: white;
+	text-decoration: none;
+	font-size: medium;
+	
+}
 body {
 
-   font-family: sans-serif;
-
-   justify-content: center;
-
-   min-height: 100vh;
-
-   background: #0c0116;
-
-   display: flex;
-
-   align-items: center;
+    font-family: sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
 
 }
 
+
+body {
+   font-family: 'GangwonState';
+   height: 100%;
+}
+
+.join {
+   margin: 0 auto;
+   width: 700px;
+   height: 1000px;
+}
+
+.join h1 {
+   margin: 0 auto;
+   text-align: center;
+   margin-top: 50px;
+}
+
+.text {
+   font-size: 13pt;
+   text-align: center;
+   margin-top: 30px;
+   margin-bottom: 70px;
+   color: #EC87C0;
+}
+
+.title {
+   margin: 0 auto;
+   align-content: center;
+   margin-left: 80px;
+}
+
+input {
+   width: 500px;
+   height: 40px;
+   border: 1px solid black;
+   margin-top: 10px;
+}
 
 .form {
 
@@ -58,7 +101,7 @@ body {
 
    background: #0c0116;
 
-   height: 98%;
+   height: 99%;
 
    width: 98%;
 

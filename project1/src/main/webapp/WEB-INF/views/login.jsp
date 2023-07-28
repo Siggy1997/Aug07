@@ -23,7 +23,7 @@
 		//alert("!");
 		let id = document.getElementById("id");
 		//alert(id.value);
-		if (id.value.length < 4) {
+		if (id.value.length < 1) {
 			alert("아이디는 4글자 이상이어야합니다.");
 			msg.innerHTML = text;
 			id.focus();
@@ -57,8 +57,11 @@
 					<div id="msg" style="color: white"></div>
 				</div>
 			</div>
+			<div class="register">
+				<a style="font-size: small;" href="./join">회원가입</a>
+			</div>
 		</form>
-	</div>
 
+	</div>
 </body>
 </html>

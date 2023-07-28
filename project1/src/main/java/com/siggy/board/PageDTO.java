@@ -1,4 +1,4 @@
-package com.siggy.pro1;
+package com.siggy.board;
 
 public class PageDTO {
 	private int firstRecordIndex, recordCountPerPage;

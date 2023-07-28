@@ -31,8 +31,8 @@
 	<insert id="write" parameterType="boardDTO">
 	<!-- 서브쿼리 : 쿼리속에 쿼리가 들어가요 -->
 		INSERT INTO board (btitle,
-		bcontent, m_no, bip)
-		VALUES(#{btitle}, #{bcontent}, (SELECT m_no FROM members WHERE m_id=#{m_id}), #{bip} );
+		bcontent, m_no, bip, uuid)
+		VALUES(#{btitle}, #{bcontent}, (SELECT m_no FROM members WHERE m_id=#{m_id}), #{bip}, #{uuid} );
 
 	</insert>
 	

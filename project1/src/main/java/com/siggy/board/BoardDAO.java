@@ -1,7 +1,6 @@
-package com.siggy.pro1;
+package com.siggy.board;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
