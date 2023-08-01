@@ -69,6 +69,9 @@ function check() {
 <br>
 <br>
 	<div class="write">WRITE</div>
+	
+	<button class="btn btn btn-outline-primary">버튼</button>
+	
 	<div class="neonText">
 		<form action="./write" method="post" onsubmit="return check()">
 			<input type="text" id="title" name="title" placeholder="제목을 입력하세요."

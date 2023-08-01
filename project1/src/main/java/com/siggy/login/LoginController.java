@@ -16,20 +16,14 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
-	 @GetMapping("join")
+	 @GetMapping("/join")
 	 public String join() {
 		 return "join";
 	 }
 	 
 	 @PostMapping("/join")
 	 public String join(JoinDTO joinDTO) {
-		 System.out.println("jsp에서 오는값 : " + joinDTO.getGender());
 		 int result = loginService.join(joinDTO);
-		 System.out.println(result);
 		 
 		 if (result == 1) {
 			return "redirect:/login";
@@ -37,6 +31,12 @@ public class LoginController {
 			return "join";
 		}
 		 
+	 }
+
+	 
+	 @GetMapping("/login")
+	 public String login() {
+		 return "login";
 	 }
 	 
 	@PostMapping("/login")

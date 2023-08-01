@@ -32,34 +32,34 @@ public class BoardController {
 	private Util util;
 
 	@GetMapping("/board")
-	public String board(@RequestParam(value ="pageNo", required= false, defaultValue = "1") int pageNo, Model model) {
+	public String board(@RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNo, Model model) {
 		// 서비스에서 값 가져오기
 		// boardService.boardList(); //한줄로 줄이기
-		
-		//페이지네이션인포 -> 값 넣고 -> DB -> jsp
-		PaginationInfo paginationInfo = new PaginationInfo(); 
-		paginationInfo.setCurrentPageNo(pageNo); //현재 페이지 번호
-		paginationInfo.setRecordCountPerPage(10); //한 페이지에 게시되는 게시물 건수
-		paginationInfo.setPageSize(10); //페이징 리스트의 사이즈
-		//전체 글수 가져오는 명령문장
+
+		// 페이지네이션인포 -> 값 넣고 -> DB -> jsp
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(pageNo); // 현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(10); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(10); // 페이징 리스트의 사이즈
+		// 전체 글수 가져오는 명령문장
 		int totalCount = boardService.totalCount();
-		paginationInfo.setTotalRecordCount(totalCount); //전체 게시물 건 수
-		
-		int firstRecordIndex = paginationInfo.getFirstRecordIndex(); //시작 위치
-		int recordCountPerPage = paginationInfo.getRecordCountPerPage(); //페이지당 몇개?
- 
-		//System.out.println(firstRecordIndex);
-		//System.out.println(recordCountPerPage);
-		//System.out.println(pageNo);
-		//System.out.println(totalCount);
-		
+		paginationInfo.setTotalRecordCount(totalCount); // 전체 게시물 건 수
+
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex(); // 시작 위치
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage(); // 페이지당 몇개?
+
+		// System.out.println(firstRecordIndex);
+		// System.out.println(recordCountPerPage);
+		// System.out.println(pageNo);
+		// System.out.println(totalCount);
+
 		PageDTO page = new PageDTO();
 		page.setFirstRecordIndex(firstRecordIndex);
 		page.setRecordCountPerPage(recordCountPerPage);
-		
-		//보드 서비스 수정합니다.
+
+		// 보드 서비스 수정합니다.
 		List<BoardDTO> list = boardService.boardList(page);
-		
+
 		model.addAttribute("list", list);
 		model.addAttribute("paginationInfo", paginationInfo);
 		return "board";
@@ -76,11 +76,9 @@ public class BoardController {
 		// System.out.println("bno" + bno);
 		BoardDTO dto = new BoardDTO();
 		dto.setBno(bno);
-		
+
 		BoardDTO result = boardService.detail(dto);
-		model.addAttribute("dto",result);
-		
-		
+		model.addAttribute("dto", result);
 
 		return "detail";
 	}
@@ -118,8 +116,7 @@ public class BoardController {
 			dto.setUuid(UUID.randomUUID().toString());
 			System.out.println(dto.getUuid());
 			System.out.println(dto.getUuid().length());
-			
-			
+
 			boardService.write(dto);
 
 			return "redirect:board";
@@ -127,62 +124,64 @@ public class BoardController {
 		} else {
 			return "redirect:/login";
 		}
-	} 
+	}
+
 	@GetMapping("/delete")
-	public String delete(@RequestParam(value = "bno", required = false, defaultValue = "0") int bno, HttpSession session) {
+	public String delete(@RequestParam(value = "bno", required = false, defaultValue = "0") int bno,
+			HttpSession session) {
 		// HttpServletRequest의 getParameter();합친거
-		//로그인 여부 확인
-		//System.out.println(session.getAttribute("mid"));
+		// 로그인 여부 확인
+		// System.out.println(session.getAttribute("mid"));
 		// dto
-		if(session.getAttribute("mid") !=null ) {
-			
+		if (session.getAttribute("mid") != null) {
+
 			BoardDTO dto = new BoardDTO();
 			dto.setBno(bno);
-			dto.setM_id((String)session.getAttribute("mid"));
+			dto.setM_id((String) session.getAttribute("mid"));
 			// 추후 로그인 하면 사용자의 정보도 담아서 보냅니다
-			
+
 			boardService.delete(dto);
 			return "redirect:board";
 		} else {
 			return "redirect:/login";
 		}
-		
+
 	}
 
 	@GetMapping("/edit")
 	public ModelAndView edit(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		
+
 		// 데이터 베이스에 bno를 보내서 dto를 얻어옵니다
 		// mv에 실어 보냅니다
-		
+
 		ModelAndView mv = new ModelAndView(); // edit.jsp
-		
-		//로그인 하지 않으면 로그인 화면으로 던져주세요
-		//if문으로 만들어주세요
-		if(session.getAttribute("mid") != null) {
+
+		// 로그인 하지 않으면 로그인 화면으로 던져주세요
+		// if문으로 만들어주세요
+		if (session.getAttribute("mid") != null) {
 			BoardDTO dto = new BoardDTO();
-			
-			//dto를 하나 만들어서 거기에 담겠습니다 = bno, mid
+
+			// dto를 하나 만들어서 거기에 담겠습니다 = bno, mid
 			dto.setBno(util.strToInt(request.getParameter("bno")));
-			dto.setM_id((String)session.getAttribute("mid"));
-			
+			dto.setM_id((String) session.getAttribute("mid"));
+
 //		BoardDTO dto = boardService.detail(util.strToInt(request.getParameter("bno")));
-			
+
 			BoardDTO result = boardService.detail(dto);
-			if(result != null) {
+			if (result != null) {
 				mv.addObject("dto", result);
 				mv.setViewName("edit");
-				
-			}else { // 다른사람글이라면 null입니다. 경고창으로 이동합니다.
+
+			} else { // 다른사람글이라면 null입니다. 경고창으로 이동합니다.
 				mv.setViewName("warning");
 			}
-			
-		}else {
+
+		} else {
 			mv.setViewName("redirect:/login");
 		}
 		return mv;
-		
+
 	}
 
 	@PostMapping("/edit")
