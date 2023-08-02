@@ -5,10 +5,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -16,29 +19,28 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
-	 @GetMapping("/join")
-	 public String join() {
-		 return "join";
-	 }
-	 
-	 @PostMapping("/join")
-	 public String join(JoinDTO joinDTO) {
-		 int result = loginService.join(joinDTO);
-		 
-		 if (result == 1) {
+	@GetMapping("/join")
+	public String join() {
+		return "join";
+	}
+
+	@PostMapping("/join")
+	public String join(JoinDTO joinDTO) {
+		int result = loginService.join(joinDTO);
+
+		if (result == 1) {
 			return "redirect:/login";
 		} else {
 			return "join";
 		}
-		 
-	 }
 
-	 
-	 @GetMapping("/login")
-	 public String login() {
-		 return "login";
-	 }
-	 
+	}
+
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+
 	@PostMapping("/login")
 	public String login(HttpServletRequest request) {
 		LoginDTO dto = new LoginDTO();
@@ -76,21 +78,21 @@ public class LoginController {
 		 * if (session.getAttribute("mid") != null) { //session.invalidate(); // 세션삭제하기
 		 * session.removeAttribute("mid"); }
 		 */
-		//session.setMaxInactiveInterval(3); //세션유지시간을 0으로 = 종료시키기
-		
+		// session.setMaxInactiveInterval(3); //세션유지시간을 0으로 = 종료시키기
+
 		session.invalidate();
-		
+
 		return "redirect:index";
 
 	}
-	
+
 	@GetMapping("/members")
 	public ModelAndView members() {
 		ModelAndView mv = new ModelAndView("members");
 		List<JoinDTO> list = loginService.members();
 		mv.addObject("list", list);
 		return mv;
-		
+
 	}
 
 }

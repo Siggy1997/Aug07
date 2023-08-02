@@ -10,35 +10,51 @@
 
 <script type="text/javascript">
 	$(function() {
-		$("#idCheck").click(function() {
-			let id = $("#id").val();
-			if (id == "" || id.length < 5) {
-				$("#resultMSG").text("아이디는 5글자 이상이어야합니다.");
-				$("#resultMSG").css("color","white");
-				
-				$("#id").focus();
-			}else{
-				$.ajax({
-					url:"./checkID",
-					type:"post",
-					data:{"id":id},  //checkID?id=siggy
-					dataType:"html",
-					success:function(data){
-						$("#resultMSG").text("data : "+ data);
-					},
-					error:function(request, status, error){
-						$("#resultMSG").text("error : "+ error)
-					}
-					
-				});
-				
-				$("#resultMSG").text("사용가능");
-				$("#resultMSG").css("color","white");
-				
-			}
-			return false;
-		});
+		$("#idCheck").click(
+				function() {
+					let id = $("#id").val();
+					//console.log(id);
+					if (id == "" || id.length < 5) {
+						$("#id").focus();
+						$("#resultMSG")
+								.text("ID MUST HAVE MORE THAN 4 LETTERS");
+						$("#resultMSG").css("color", "red").css("font-weight",
+								"bold").css("font-size", "10pt");
 
+					} else {
+						$.ajax({ //ajax 시작
+							url : "./checkID",
+							type : "post",
+							data : {
+								"id" : id
+							},
+							dataType : "json", // {result : 0}
+							success : function(data) {
+								if (data.result == 1) {
+									$("#id").css("background-color", "red");
+									$("#id").focus();
+									$("#resultMSG").css("color", "red").css(
+											"font-weight", "bold").css(
+											"font-size", "10pt");
+									$("#resultMSG").text("이미 등록된 ID");
+								} else {
+									$("#id").css("background-color", "white");
+									$("#resultMSG").css("color","green")
+									$("#resultMSG").text("가능");
+								}
+
+								//$("#resultMSG").text("성공시 결과값 : " + data);
+							},
+							error : function(request, status, error) {
+								
+								$("#resultMSG").text("오류 발생");
+							}
+						});
+
+					}
+
+					return false;
+				});
 	});
 </script>
 
@@ -60,12 +76,10 @@
 
 				ID<br> <input type="text" name="id" id="id"
 					style="width: 410px; float: left; margin-right: 6px;'">
-				<button  id="idCheck">
-					아이디<br>체크
-				</button>
+				<button id="idCheck">CHECK</button>
 				<span id="resultMSG"></span> <br> <br> <br> PASSWORD<br>
 				<input type="password" name="pw1"> <br> <br> <br>
-				VERIFY PASSWORD<br> <input type="password" name="pw2">
+				CONFIRM PASSWORD<br> <input type="password" name="pw2">
 				<br> <br> <br> NAME<br> <input type="text"
 					name="name"> <br> <br> <br> SEX<br>
 				<div class="select">

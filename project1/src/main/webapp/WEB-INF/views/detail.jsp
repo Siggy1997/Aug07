@@ -8,8 +8,6 @@
 <meta charset="UTF-8">
 <title>게시글</title>
 <link rel="stylesheet" href="./css/detail.css">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
 
 <script type="text/javascript">
 	function del() {

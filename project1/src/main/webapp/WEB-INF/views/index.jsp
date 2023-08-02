@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>홈</title>
-<%@ include file="menu.jsp"%>
 
 <link rel="stylesheet" href="./resources/css/index.css">
 </head>
 <body>
+<%@ include file="menu.jsp"%>
 	<br>
 	<br>
 	<br>
