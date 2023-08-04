@@ -10,6 +10,23 @@
 	text-align: center;
 }
 
+.comm{
+	overflow: scroll;
+}
+.commentsT {
+	display: inline;
+	float: left;
+}
+.commentsTR {
+	display: inline;
+	float: right;
+}
+
+#commenttextarea{
+	width: 700px;
+	height: 50px;
+}
+
 body {
 	background-color: black;
 }
@@ -24,21 +41,24 @@ body {
 .wrapper {
 	margin: 0 auto;
 	width: 800px;
-	height: 500px;
+	height: 600px;
 	font-size: 1.2rem;
 	border: 0.2rem solid #fff;
 	box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem
 		#bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
+	overflow: scroll;
 }
 
 .wrapper1 {
-	margin: 0 auto; font-size : 1.2rem;
+	margin: 0 auto;
+	font-size: 1.2rem;
 	border: 0.2rem solid #fff;
 	box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem
 		#bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
-	font-size: 1.2rem; border : 0.2rem solid #fff; box-shadow : 0 0 .2rem
-	#fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe, 0 0 2.8rem
-	#bc13fe, inset 0 0 1.3rem #bc13fe;
+	font-size: 1.2rem;
+	border: 0.2rem solid #fff;
+	box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem
+		#bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
 	width: 140px;
 	height: 40px;
 }

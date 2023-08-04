@@ -22,7 +22,13 @@
 	align-items : center;
 	padding: 10px;
 }
-
+span{
+	color: red; 
+	float: right;	
+	margin-right: 20px;
+	font-weight: bolder;
+	
+}
 
 .menubar a{
 	text-decoration: none;

@@ -46,13 +46,19 @@
 					<th>제목</th>
 					<th>글쓴이</th>
 					<th>날짜</th>
-					<th>조회수</th>
+					<th>조회수 </th>
 				</tr>
 				<c:forEach items="${list }" var="row">
+				
+				
 					<!-- 	onclick 자바 스크립트 페이지 이동, URL?파라미터 = 값 -->
 					<tr onclick="location.href='./detail?bno=${row.bno}'">
 						<td style="color: white">${row.bno }</td>
-						<td style="color: white">${row.btitle }</td>
+						<td style="color: white">${row.btitle } 
+						<span>
+						<c:if test="${row.commentcount ne 0}">  ${row.commentcount }</c:if>
+						</span>
+						</td>
 						<td style="color: white">${row.m_name }</td>
 						<td style="color: white">${row.bdate }</td>
 						<td style="color: white">${row.blike }</td>

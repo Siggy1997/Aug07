@@ -1,6 +1,7 @@
 package com.siggy.board;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,7 +32,7 @@ public class BoardDAO {
 	}
 
 	public void delete(BoardDTO dto) {
-		sqlsession.delete("board.delete", dto);
+		sqlsession.update("board.delete", dto);
 	}
 
 	public void edit(BoardDTO dto) {
@@ -44,6 +45,10 @@ public class BoardDAO {
 
 	public int totalCount() {
 		return sqlsession.selectOne("board.totalCount");
+	}
+
+	public List<Map<String, Object>> commentsList(int bno) {
+		return sqlsession.selectList("board.commentsList", bno);
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.siggy.board;
 
 public class BoardDTO {
-	private int bno, blike;
+	private int bno, blike, commentcount;
 	private String btitle, m_name, m_id, bcontent, bdate, bip, uuid;
 	
 	
@@ -58,6 +58,12 @@ public class BoardDTO {
 	}
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+	public int getCommentcount() {
+		return commentcount;
+	}
+	public void setCommentcount(int commentcount) {
+		this.commentcount = commentcount;
 	}
 	
 	
