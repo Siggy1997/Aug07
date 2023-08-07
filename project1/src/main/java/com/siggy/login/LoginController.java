@@ -23,6 +23,11 @@ public class LoginController {
 	public String join() {
 		return "join";
 	}
+	
+	@GetMapping("/join2")
+	public String join2() {
+		return "join2";
+	}
 
 	@PostMapping("/join")
 	public String join(JoinDTO joinDTO) {

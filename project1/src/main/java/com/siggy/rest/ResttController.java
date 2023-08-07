@@ -3,6 +3,8 @@ package com.siggy.rest;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.siggy.board.BoardService;
 import com.siggy.login.LoginService;
+import com.siggy.util.Util;
 
 @RestController
 public class ResttController {
 
 	@Autowired
 	private LoginService loginService;
+
+	@Autowired
+	private Util util;
+	
+	@Autowired
+	private BoardService boardService;
 
 	// 아이디 중복검사 2023-08-02
 	@PostMapping("/checkID")
@@ -28,6 +38,12 @@ public class ResttController {
 		json.put("result", result);
 
 		return json.toString();
+	}
+
+	@PostMapping("/checkID2")
+	public String checkID2(@RequestParam("id") String id) {
+		int result = loginService.checkID(id);
+		return result + "";
 	}
 
 	// boardList2
@@ -55,5 +71,29 @@ public class ResttController {
 	 * 객체 : {키 : 값, 이름 : 값,..............}
 	 * 
 	 */
+
+	@PostMapping("/cdelR")
+	public String cdelR(@RequestParam Map<String, Object> map, HttpSession session) {
+		int result = 0;
+		JSONObject json = new JSONObject();
+		
+		if (session.getAttribute("mid") != null) {
+
+			if (map.get("bno") != null && map.get("cno") != null && !(map.get("bno").equals(""))
+					&& !(map.get("cno").equals("")) && util.isNum(map.get("bno")) && util.isNum(map.get("cno"))) {
+				
+				
+				System.out.println("hello");
+				map.put("mid", session.getAttribute("mid"));
+				result = boardService.cdel(map);
+				System.out.println("삭제 결과" + result);
+				
+				json.put("result", result);
+			}
+
+		}
+		
+		return json.toString();
+	}
 
 }

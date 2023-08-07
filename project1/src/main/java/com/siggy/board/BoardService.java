@@ -90,6 +90,10 @@ public class BoardService {
 	public List<Map<String, Object>> commentsList(int bno) {
 		return boardDAO.commentsList(bno);
 	}
+
+	public int cdel(Map<String, Object> map) {
+		return boardDAO.cdel(map);
+	}
 	
 	
 }

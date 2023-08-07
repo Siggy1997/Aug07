@@ -27,7 +27,14 @@
 		}
 
 	}
+	function cdel(cno){
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			location.href="./cdel?bno=${dto.bno }&cno="+cno;
+		}
+	}
 
+	
+	
 	$(function() {
 		$(".commentBox").hide();
 		$("#openComment").click(function() {
@@ -35,7 +42,47 @@
 			$("#openComment").remove();
 
 		})
+		      //댓글 삭제 다른 방법
+      $(".cdel").click(function(){
+    		if(confirm("댓글을 삭제하시겠습니까?")){
+        		 //alert("삭제합니다."+ $(this).parent().siblings(".cid").text()   );
+        		 let cno = $(this).parent().siblings(".cid").text();
+        		 //location.href="./cdel?bno=${dto.bno }&cno="+cno;
+        		 let cno_comments = $(this).parents(".comment");
+        		 $.ajax({
+        			url : "./cdelR",
+        		 	type : "post",
+        		 	data : {bno: ${dto.bno}, cno: cno},
+        		 	dataType: "json",
+        			success: function(data){
+        				if(data.result==1){
 
+        				cno_comments.remove();
+							alert("hi");
+        				}else{
+        					alert("통신에 문제가 발생")
+        				}
+        			},
+        		 	
+        		 	error:function(error){
+        		 		alert("error: " +error );
+        		 		
+        		 	}
+        		 
+        			
+        		 });
+        		 
+        		 
+        		 
+    		}
+      });
+
+		//댓글삭제 버튼 만들기 = 반드시 로그인하고, 자신의 글인지 확인하는 검사 구문 필요
+		
+		
+		//댓글수정 버튼 만들기 = 반드시 로그인하고, 자신의 글인지 확인하는 검사 구문 필요
+		
+		
 	});
 </script>
 
@@ -72,9 +119,7 @@
 		<div style="color: white;">
 
 			<div>
-				내용 : ${dto.bcontent } <br>
-				<br>
-				<br>
+				내용 : ${dto.bcontent } <br> <br> <br>
 				<hr>
 				댓글달기
 				<hr>
@@ -83,7 +128,7 @@
 					<div class="commentBox">
 						<form action="./comment" method="post">
 							<textarea name="comment" id="commenttextarea"></textarea>
-							<button type="submit"  id="comment">글쓰기</button>
+							<button type="submit" id="comment">글쓰기</button>
 							<input type="hidden" name="bno" value="${dto.bno }">
 
 						</form>
@@ -97,9 +142,21 @@
 							<div>댓글</div>
 							<hr>
 							<c:forEach items="${commentsList }" var="c">
-								<div>
-									<div class="commentsT">${c.m_id }/${c.m_name }</div>
+								<div class="comment" >
+								
+									<div class="commentsT">
+									${c.m_id }/${c.m_name }
+										<c:if
+											test="${sessionScope.mid ne null && sessionScope.mid eq c.m_id }">
+											<img alt="edit" src="./img/delete.png"
+												onclick="cedit()">
+											<img alt="delete" src="./img/edit.png" class="cdel"
+												onclick="cdel1(${c.c_no })">
+										</c:if>
+									</div>
+									
 									<div class="commentsTR">${c.c_date }</div>
+									<div class="cid">${c.c_no }</div>
 								</div>
 								<br>
 								<div class="commentsT">${c.c_comment }</div>

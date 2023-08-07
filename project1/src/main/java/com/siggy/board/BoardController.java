@@ -200,5 +200,30 @@ public class BoardController {
 		return "redirect:detail?bno=" + dto.getBno();
 
 	}
+	
+	@GetMapping("/cdel") //bno,cno
+	public String cdel(@RequestParam Map<String, Object> map, HttpSession session) {
+		//로그인 여부 검사 
+		if (session.getAttribute("mid") != null) {
+			//값이 들어왔는지 여부 검사
+			System.out.println(map.get("bno"));
+			System.out.println(map.get("cno"));
+			System.out.println(map.get("cno").equals(""));
+			if (map.get("bno") != null && map.get("cno") != null &&
+					!(map.get("bno").equals(""))  &&  !(map.get("cno").equals("")) && 
+					util.isNum(map.get("bno")) && util.isNum(map.get("cno")) ) {
+				
+				System.out.println("hello");
+				map.put("mid", session.getAttribute("mid"));
+			int result = boardService.cdel(map);
+			System.out.println("삭제 결과" +  result);
+			}
+			
+			
+		}
+		return "redirect:/detail?bno="+map.get("bno");
+	}
+	
+	
 
 }

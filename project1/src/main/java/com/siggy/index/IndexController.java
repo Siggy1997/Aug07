@@ -9,7 +9,7 @@ public class IndexController {
 
 	@GetMapping(value = {"/", "/index"})
 	public String index() {
-		return"index"; //데이터 붙임 없이 index.jsp페이지만 보여줍니다
+		return "index"; //데이터 붙임 없이 index.jsp페이지만 보여줍니다
 	}
 	
 	@GetMapping("/menu")
